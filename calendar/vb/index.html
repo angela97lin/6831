@@ -1,0 +1,324 @@
+<!doctype html>
+<html>
+<head>
+  <title>Recurring Calendar Event</title>
+  <link rel="stylesheet" href="layout.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+<script src="util.js"></script>
+  <script src="event.js"></script>
+  <script src="interface.js"></script>
+  <script src="event-text.js"></script>
+  <script src="create-recurring-event.js"></script>
+  <!-- Remove this script to disable logging -->
+  <script src="logging.js"></script>
+  <script>
+$( function() {
+  $( "#datepicker" ).datepicker({
+    changeMonth: true,
+    changeYear: true
+  });
+} );
+</script>
+</head>
+
+<body>
+  <div id="container">
+    <div id="content">
+      <div class="card-inverse">
+        <div class="card-block">
+          Use this this interface to different events from your actual schedule this week, working as quickly and as accurately as you can.
+        </div>
+      </div>
+      <h1 class="card">Recurring Event Calendar</h1>
+      <br>
+      <div class="card">
+        <div class="full">
+          <form>
+            <div class="form-group row">
+              <div class="col-lg-2"></div>
+
+              <label for="" class="col-lg-2 col-form-label label">Event Name</label>
+              <div class="col-lg-6">
+                <input type="text" id="event-name" class="form-control" id="" placeholder="Event Name">
+                <div class="col-lg-2"></div>
+
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-lg-2"></div>
+
+              <label for="" class="col-lg-2 col-form-label label" >Event Location</label>
+              <div class="col-lg-6">
+                <input type="text" id="event-location" class="form-control" placeholder="Event Location">
+              </div>
+              <div class="col-lg-2"></div>
+
+            </div>
+
+            <div class="form-group row">
+              <div class="col-lg-2"></div>
+
+              <div class="col-lg-2 label time-detail-name">All day:</div>
+              <div class="col-lg-6">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="all-day-event-checkbox">
+                </div>
+              </div>
+              <div class="col-lg-2"></div>
+
+            </div>
+            <div id="start-time-row">
+
+              <div class="form-group row">
+                <div class="col-lg-2"></div>
+
+                <label for="" class="col-lg-2 col-form-label col-form-label label">Starts:</label>
+                <div class="col-lg-6">
+                  <!-- <p>Date: <input type="text" id="datepicker"></p> -->
+
+                  <input id="event-start-date" class="form-control" type="datetime-local">
+                </div>
+                <div class="col-lg-2"></div>
+
+              </div>
+            </div>
+
+            <div id="end-time-row">
+
+              <div class="form-group row" id="end-time-row">
+                <div class="col-lg-2"></div>
+
+                <label for="" class="col-lg-2 col-form-label col-form-label label">Ends:</label>
+                <div class="col-lg-6">
+                  <input id="event-end-date" class="form-control" type="datetime-local">
+                </div>
+                <div class="col-lg-2"></div>
+
+              </div>
+            </div>
+
+            <div id="all-day-event-row" class="hidden">
+              <div class="form-group row">
+                <div class="col-lg-2"></div>
+
+                <label for="" class="col-lg-2 col-form-label col-form-label label">Date:</label>
+                <div class="col-lg-6">
+                  <input id="all-day-event-date" class="form-control" type="date">
+                </div>
+                <div class="col-lg-2"></div>
+
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-lg-2"></div>
+
+              <div class="col-lg-2"></div>
+              <div class="col-lg-6">
+                <select id="recurrent-event-type-selector">
+                  <option value="none" selected="selected">Does not repeat</option>
+                  <option value="day">Every Day</option>
+                  <option value="week">Every Week</option>
+                  <option value="month">Every Month</option>
+                  <option value="year">Every Year</option>
+                  <option disabled="disabled"></option>
+                  <option value="custom">Custom...</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="recurrent-event-end-date-row" class="hidden">
+              <div class="form-group row">
+                <div class="col-lg-2"></div>
+
+                <label for="" class="col-lg-2 col-form-label col-form-label label">end repeat:</label>
+                <div class="col-lg-6">
+                  <input id="recurrent-event-end-date" class="form-control" type="date">
+                </div>
+                <div class="col-lg-2"></div>
+
+              </div>
+            </div>
+          </form>
+
+          <!-- Event Repeat Details -->
+          <div id="recurrent-event-details-line" class="line hidden"></div>
+          <div id="recurrent-event-content" class="col-md-12">
+
+            <table id="recurrent-event-details" class="hidden">
+              <tr>
+                <td>Frequency: </td>
+                <td><select id="recurrent-event-time-selector">
+                  <option value="day" selected="selected">Daily</option>
+                  <option value="week">Weekly</option>
+                  <option value="month">Monthly</option>
+                  <option value="year">Yearly</option>
+                </select></td>
+              </tr>
+            </table>
+
+            <div id="daily-recurrent-details" class="hidden">
+              Every <input id="dayly-recurrent-freq" type="text" value="1" maxlength="3" style="width:30px;"> day(s).
+            </div>
+
+            <div id="weekly-recurrent-details" class="hidden">
+              Every <input id="weekly-recurrent-freq" type="text" value="1" maxlength="2" style="width:30px;"> week(s) on:
+
+              <!-- from http://codepen.io/steelwater/pen/BjeZQx -->
+              <div class="checkboxes">
+                <div class="checkbox-selector">
+                  <input type="checkbox" id="weekday-sun" class="weekday-checkbox" />
+                  <label for="weekday-sun">S</label>
+                  <input type="checkbox" id="weekday-mon" class="weekday-checkbox" />
+                  <label for="weekday-mon">M</label>
+                  <input type="checkbox" id="weekday-tue" class="weekday-checkbox" />
+                  <label for="weekday-tue">T</label>
+                  <input type="checkbox" id="weekday-wed" class="weekday-checkbox" />
+                  <label for="weekday-wed">W</label>
+                  <input type="checkbox" id="weekday-thu" class="weekday-checkbox" />
+                  <label for="weekday-thu">T</label>
+                  <input type="checkbox" id="weekday-fri" class="weekday-checkbox" />
+                  <label for="weekday-fri">F</label>
+                  <input type="checkbox" id="weekday-sat" class="weekday-checkbox" />
+                  <label for="weekday-sat">S</label>
+                </div>
+              </div>
+            </div>
+
+            <div id="monthly-recurrent-details" class="hidden">
+              Every <input id="monthly-recurrent-freq" type="text" value="1" maxlength="2" style="width:30px;"> month(s) on:
+
+              <div class="checkboxes">
+                <div class="checkbox-selector">
+                  <input type="checkbox" id="month-1" class="day-checkbox">
+                  <label for="month-1">1</label>
+                  <input type="checkbox" id="month-2" class="day-checkbox">
+                  <label for="month-2">2</label>
+                  <input type="checkbox" id="month-3" class="day-checkbox">
+                  <label for="month-3">3</label>
+                  <input type="checkbox" id="month-4" class="day-checkbox">
+                  <label for="month-4">4</label>
+                  <input type="checkbox" id="month-5" class="day-checkbox">
+                  <label for="month-5">5</label>
+                  <input type="checkbox" id="month-6" class="day-checkbox">
+                  <label for="month-6">6</label>
+                  <input type="checkbox" id="month-7" class="day-checkbox">
+                  <label for="month-7">7</label>
+                </div>
+                <div class="checkbox-selector">
+                  <input type="checkbox" id="month-8" class="day-checkbox">
+                  <label for="month-8">8</label>
+                  <input type="checkbox" id="month-9" class="day-checkbox">
+                  <label for="month-9">9</label>
+                  <input type="checkbox" id="month-10" class="day-checkbox">
+                  <label for="month-10">10</label>
+                  <input type="checkbox" id="month-11" class="day-checkbox">
+                  <label for="month-11">11</label>
+                  <input type="checkbox" id="month-12" class="day-checkbox">
+                  <label for="month-12">12</label>
+                  <input type="checkbox" id="month-13" class="day-checkbox">
+                  <label for="month-13">13</label>
+                  <input type="checkbox" id="month-14" class="day-checkbox">
+                  <label for="month-14">14</label>
+                </div>
+                <div class="checkbox-selector">
+                  <input type="checkbox" id="month-15" class="day-checkbox">
+                  <label for="month-15">15</label>
+                  <input type="checkbox" id="month-16" class="day-checkbox">
+                  <label for="month-16">16</label>
+                  <input type="checkbox" id="month-17" class="day-checkbox">
+                  <label for="month-17">17</label>
+                  <input type="checkbox" id="month-18" class="day-checkbox">
+                  <label for="month-18">18</label>
+                  <input type="checkbox" id="month-19" class="day-checkbox">
+                  <label for="month-19">19</label>
+                  <input type="checkbox" id="month-20" class="day-checkbox">
+                  <label for="month-20">20</label>
+                  <input type="checkbox" id="month-21" class="day-checkbox">
+                  <label for="month-21">21</label>
+                </div>
+                <div class="checkbox-selector">
+                  <input type="checkbox" id="month-22" class="day-checkbox">
+                  <label for="month-22">22</label>
+                  <input type="checkbox" id="month-23" class="day-checkbox">
+                  <label for="month-23">23</label>
+                  <input type="checkbox" id="month-24" class="day-checkbox">
+                  <label for="month-24">24</label>
+                  <input type="checkbox" id="month-25" class="day-checkbox">
+                  <label for="month-25">25</label>
+                  <input type="checkbox" id="month-26" class="day-checkbox">
+                  <label for="month-26">26</label>
+                  <input type="checkbox" id="month-27" class="day-checkbox">
+                  <label for="month-27">27</label>
+                  <input type="checkbox" id="month-28" class="day-checkbox">
+                  <label for="month-28">28</label>
+                </div>
+                <div class="checkbox-selector">
+                  <input type="checkbox" id="month-29" class="day-checkbox">
+                  <label for="month-29">29</label>
+                  <input type="checkbox" id="month-30" class="day-checkbox">
+                  <label for="month-30">30</label>
+                  <input type="checkbox" id="month-31" class="day-checkbox">
+                  <label for="month-31">31</label>
+                </div>
+              </div>
+            </div>
+
+            <div id="yearly-recurrent-details" class="hidden">
+              Every <input id="yearly-recurrent-freq" type="text" value="1" maxlength="2" style="width:30px;"> year(s) in:
+
+              <div class="checkboxes">
+                <div class="month-checkbox-selector">
+                  <input type="checkbox" id="year-jan" class="month-checkbox">
+                  <label for="year-jan">Jan</label>
+                  <input type="checkbox" id="year-feb" class="month-checkbox">
+                  <label for="year-feb">Feb</label>
+                  <input type="checkbox" id="year-mar" class="month-checkbox">
+                  <label for="year-mar">Mar</label>
+                  <input type="checkbox" id="year-apr" class="month-checkbox">
+                  <label for="year-apr">Apr</label>
+                </div>
+                <div class="month-checkbox-selector">
+                  <input type="checkbox" id="year-may" class="month-checkbox">
+                  <label for="year-may">May</label>
+                  <input type="checkbox" id="year-jun" class="month-checkbox">
+                  <label for="year-jun">Jun</label>
+                  <input type="checkbox" id="year-jul" class="month-checkbox">
+                  <label for="year-jul">Jul</label>
+                  <input type="checkbox" id="year-aug" class="month-checkbox">
+                  <label for="year-aug">Aug</label>
+                </div>
+                <div class="month-checkbox-selector">
+                  <input type="checkbox" id="year-sept" class="month-checkbox">
+                  <label for="year-sept">Sept</label>
+                  <input type="checkbox" id="year-oct" class="month-checkbox">
+                  <label for="year-oct">Oct</label>
+                  <input type="checkbox" id="year-nov" class="month-checkbox">
+                  <label for="year-nov">Nov</label>
+                  <input type="checkbox" id="year-dec" class="month-checkbox">
+                  <label for="year-dec">Dec</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card col-lg-4">
+          <button id="create-event-button" class="submitButton btn btn-primary" type="button">Create Event</button>
+        </div>
+
+        <div id="new-event-text" class="card col-lg-4"></div>
+      </div>
+
+      <p id="bottomtext"></p>
+    </form>
+  </div>
+
+</div>
+</body>
+</html>

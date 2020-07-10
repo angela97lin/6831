@@ -1,0 +1,25 @@
+increased size of checkbox!!!!
+
+date is prepopulated with today's date and linked!!
+
+no shift when from all day to normal :)
+
+Questions:
+
+how big do the tasks have to be? ex: 1 task or 10?
+How specific do they have to be? (Make an event for UROP vs make even called "UROP this this this")
+KLM has to be based on most efficient? ex can type date or click and can make click more efficient...
+
+Want to separate time from date  but not necessarily more efficient
+Similarly, error prevention is not more efficient in terms of KLM
+resizing?
+
+TODO: put form in div so that it doesnt resize like crazy
+
+
+task for editing errors
+
+
+ALLOW USERS TO CLICK ON THE ENTIRE TEXT FIELD TO INSERT DATE
+
+am / pm separate time?
