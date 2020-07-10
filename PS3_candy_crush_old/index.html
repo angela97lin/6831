@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Candy Crush</title>
+
+	<!-- Use mobile-aware viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Load style sheets -->
+	<link rel="stylesheet" href="game.css">
+
+	<!-- Load any supplemental Javascript libraries here -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.2/seedrandom.js"></script>
+
+	<!-- Constructible EventTarget polyfill — Only Chrome 64+ supports constructible EventTarget objects natively -->
+	<script src="https://unpkg.com/event-target@latest/min.js"></script>
+
+	<script src="util.js"></script>
+	<script src="candy.js"></script>
+	<script src="board.js"></script>
+	<script src="rules.js"></script>
+	<script src="game.js"></script>
+
+
+</head>
+
+
+<body class="">
+
+	<!--First column-->
+	<header class="">
+		<div class="flex-col">
+			<div class="item">
+				<h1 class="arial-font bold" id="title"> Candy Crush!</h1>
+			</div>
+			<div class="item">
+				<div id="score" class="arial-font">
+						<div id="score_number">0</div>
+						<div id="score_title">points</div>
+				</div>
+			</div>
+			<div class="flex-col-buttons item">
+				<div class="full-height">
+				<button id="new-game" class="full-width item">New Game</button>
+				<button id="show-hint" class="full-width item">Show Hint</button>
+			</div>
+			</div>
+		</div>
+	</header>
+
+	<!--Second column-->
+	<main class="">
+		<div class="test">
+		<table id="game-board" class="board" cellspacing="0" cellpadding="0">
+			<tbody id="game-board-body" cellspacing="0" cellpadding="0"></tbody>
+		</table>
+	</div>
+	</main>
+
+	<!--Third column-->
+	<div id="controls" class="">
+		<div class="grid-flex-col">
+			<div class="grid-item">
+				<div id="controls-grid">
+					<button id="left-arrow" class="arrow-button">&larr;</button>
+					<button id="right-arrow" class="arrow-button">&rarr;</button>
+					<input id="control-input-box" type="text" autofocus><br>
+					<button id="up-arrow" class="arrow-button">&uarr;</button>
+					<button id="down-arrow" class="arrow-button">&darr;</button>
+				</div>
+			</div>
+			<div class="grid-item">
+				<button id="crush-button">Crush Once</button>
+			</div>
+		</div>
+
+	</div>
+</body>
+
+</html>

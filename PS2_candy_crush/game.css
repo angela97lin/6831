@@ -1,0 +1,238 @@
+/* Global variables */
+:root {
+	--color-light-gray: hsl(220, 10%, 85%);
+	--color-red: hsl(0, 80%, 48%);
+	--color-yellow: gold;
+	--color-green: hsl(85, 90%, 37%);
+	--color-orange: hsl(30, 100%, 50%);
+	--color-blue: hsl(210, 80%, 45%);
+	--color-purple: purple;
+	--duration-move: .1s; /* Duration to move by 1 cell */
+	--duration-fade: .4s;
+}
+
+html {
+	display: flex;
+	min-height: 100vh;
+}
+
+body {
+	margin: auto;
+	display: grid;
+	grid-template-columns: 1fr 3fr 2fr;
+	grid-column-gap: 10px;
+	grid-row-gap: 10px;
+}
+
+header {
+	color: var(--color-blue);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: auto;
+}
+
+main {
+	margin: auto;
+}
+
+button {
+	border-radius:10px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	padding:16px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #154682;
+	font-weight: bold;
+}
+
+button:active {
+	position:relative;
+	top:1px;
+}
+
+input[type="text"] {
+	width: 100%;
+	border: 1px solid #ccc;
+	display: inline-block;
+	box-sizing: border-box;
+	border-radius: 5px;
+	padding: 10px;
+	transition:background-color 0.5s ease;
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+input[type=text]:focus {
+	background-color: rgba(219, 244, 255, 0.8);
+}
+
+/* Used in the creation of the game board cells */
+td {
+	border: 1px solid var(--color-light-gray);
+	margin: 0px;
+	padding:0px;
+}
+
+td img{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 40px;
+	max-height: 40px;
+}
+
+.board {
+	/* Variables to use in creating the board*/
+	--grid-color: silver;
+	--board-size: 400px;
+	--grid-gap: 1px;
+	--cell-outer: calc(var(--board-size) / var(--size));
+	--cell: calc(var(--cell-outer) - var(--grid-gap));
+}
+
+.arrow-button {
+	background-color: var(--color-green);
+	font-size: 20px;
+	color: white;
+	text-align: center;
+	padding: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	width: 100%;
+	height: 100%;
+}
+
+.arrow-button:disabled {
+	color: rgb(130, 130, 130);
+	background-color: rgb(180, 180, 180);
+}
+
+.arrow-button:enabled:hover {
+	background-color: rgb(34,139,34);
+}
+
+.flex-col {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.item {
+	flex: 1;
+	margin-bottom: 10px;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.arial-font {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+#title {
+	font-size: 50px;
+}
+
+/* For the new game button*/
+#new-game {
+	background-color: var(--color-blue);
+	font-weight: bold;
+	font-size: 20px;
+	color: white;
+	text-align: center;
+}
+
+#new-game:hover {
+	background-color:#0061a7;
+}
+
+#game-board {
+	width: 400px;
+	height: 400px;
+	border-collapse: collapse;
+}
+
+#game-board-body {
+	width: 400px;
+	height: 400px;
+	border-collapse: collapse;
+}
+
+#left-arrow {
+	grid-row: 2;
+	grid-column: 1;
+	text-align: center;
+}
+
+#right-arrow {
+	grid-row: 2;
+	grid-column: 3;
+	text-align: center;
+}
+
+#up-arrow {
+	grid-row: 1;
+	grid-column: 2;
+	text-align: center;
+}
+
+#down-arrow {
+	grid-row: 3;
+	grid-column: 2;
+	text-align: center;
+}
+
+#control-input-box {
+	grid-row: 2;
+	grid-column: 2;
+	text-align: center;
+	font-size: 20px;
+	size:40px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#controls-grid {
+	display: grid;
+	grid-template-columns: 100px 100px 100px;
+	grid-template-rows: 50px 50px 50px;
+	grid-row-gap: 15px;
+	grid-column-gap: 15px;
+	text-align: center;
+}
+
+#controls {
+	text-align: center;
+	margin: auto;
+}
+
+/* Crush once button */
+#crush-button {
+	background-color: var(--color-green);
+	font-size: 16px;
+	padding: 10px;
+	color: white;
+}
+
+#crush-button:enabled:hover {
+	background-color: rgb(34,139,34);
+}
+
+#crush-button:disabled {
+	color: rgb(130, 130, 130);
+	background-color: rgb(180, 180, 180);
+}

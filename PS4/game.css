@@ -1,0 +1,546 @@
+/* Global variables */
+:root {
+	--color-light-gray: hsl(220, 10%, 85%);
+	--color-red: hsl(0, 80%, 48%);
+	--color-yellow: gold;
+	--color-green: hsl(85, 90%, 37%);
+	--color-orange: hsl(30, 100%, 50%);
+	--color-blue: hsl(210, 80%, 45%);
+	--color-purple: purple;
+	--duration-move: 1s; /* Duration to move by 1 cell */
+	--duration-fade: .4s;
+	--move-amount: 1;
+	--board-size: 400px;
+	--grid-gap: 1px;
+	--cell-outer: calc(var(--board-size) / var(--size));
+	--cell: calc(var(--cell-outer) - var(--grid-gap));
+	--grid-color: silver;
+	--grid-size : calc(var(--size));
+}
+
+html {
+	min-height: 100vh;
+}
+
+body {
+	margin:auto;
+	margin-top: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction:row;
+}
+
+header {
+	color: var(--color-blue);
+	display: flex;
+	flex-grow: 1;
+	flex-shrink: 0;
+	flex-basis: 20%;
+	height: 100%;
+	width:90%;
+	margin-left: 10px;
+	position: relative;
+	z-index: 0;
+}
+
+main {
+	display: flex;
+	flex-grow: 1;
+	flex-shrink: 0;
+	flex-basis: 50%;
+	justify-content: center;
+	width:90%;
+	margin-left: 5px;
+	margin-right: 5px;
+	position: relative;
+	z-index: 0;
+}
+
+button {
+	border-radius:10px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	padding:16px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #154682;
+	font-weight: bold;
+}
+
+button:active {
+	position:relative;
+	top:1px;
+}
+
+img{
+	display: block;
+	object-fit: contain;
+	width:100%;
+	height:100%;
+	justify-content: center;
+	margin: auto;
+	position: relative;
+}
+
+.child
+{
+	display: inline-block;
+	border: 1px solid black;
+	margin-left: -1px;
+	margin-bottom: -1px;
+}
+
+.item {
+	width: 90%;
+	height: 80%;
+	text-align: center;
+	margin: 5 -25px;
+	flex: 1;
+	justify-content: center;
+}
+
+.flex-col {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+	height: 80%;
+	width: 100%;
+}
+
+.content {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 	var(--cell);
+	height:	var(--cell);
+	align-items: center;
+}
+
+.head {
+	border-top: 0; !important;
+	display: flex;
+	align-self: flex-end;
+	justify-content: center;
+	font-size: 3vh;
+	font-family:Arial;
+}
+
+.slideDown {
+	animation-name: slideDown;
+	animation-duration: var(--duration-move);
+	animation-timing-function: linear;
+	visibility: visible !important;
+}
+
+@keyframes slideDown {
+
+	0% {
+		transform: translateY(calc(-100%*var(--move-amount)));
+	}
+	100% {
+		transform: translateY(0%);
+	}
+}
+
+.slideLeft {
+	animation-name: slideLeft;
+	animation-duration: var(--duration-move);
+	animation-timing-function: linear;
+	visibility: visible !important;
+}
+
+@keyframes slideLeft {
+	0% {
+		transform: translateX(calc(100%*var(--move-amount)));
+	}
+	100% {
+		transform: translateX(0%);
+	}
+}
+
+.slideRight {
+	animation-name: slideRight;
+	animation-duration: var(--duration-move);
+	animation-timing-function: linear;
+	visibility: visible !important;
+}
+
+@keyframes slideRight {
+	0% {
+		transform: translateX(calc(-100%*var(--move-amount)));
+	}
+	100% {
+		transform: translateX(0%);
+	}
+}
+
+.slideUp {
+	animation-name: slideUp;
+	animation-duration: var(--duration-move);
+	animation-timing-function: linear;
+	visibility: visible !important;
+}
+
+@keyframes slideUp {
+	0% {
+		transform: translateY(calc(100%*var(--move-amount)));
+	}
+	100% {
+		transform: translateY(0%);
+	}
+}
+
+.fade {
+	animation-name: fade;
+	animation-duration: var(--duration-fade);
+	animation-timing-function: linear;
+	visibility: visible !important;
+}
+
+@keyframes fade {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.slide-back {
+	animation-name: slide-back;
+	animation-duration: 0.3s;
+	animation-timing-function: linear;
+}
+
+@keyframes slide-back {
+	0% {
+		transform: translate(calc(var(--start-x) * 1px), calc(var(--start-y) * 1px));
+	}
+	100% {
+		transform: translate(0px, 0px);
+	}
+}
+
+.board {
+	/* Variables to use in creating the board*/
+	--grid-color: silver;
+	--board-size: 400px;
+	--grid-gap: 1px;
+	--cell-outer: calc(var(--board-size) / var(--size));
+	--cell: calc(var(--cell-outer) - var(--grid-gap));
+}
+
+.flex-col-buttons {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.grid-flex-col {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	margin: 0 25px;
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.grid-item {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+	margin: 10px -25px;
+}
+
+.arial-font {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.starting-text {
+	color: gray;
+}
+
+.contrast-color-text {
+	color: gray;
+}
+
+.normal-color-text {
+	color: white;
+}
+
+/*Animation effect for showing hints*/
+.pulsate {
+	animation-name: pulsate;
+	animation-duration: 1.5s;
+	animation-timing-function: ease-out;
+	animation-iteration-count: infinite;
+}
+
+@keyframes pulsate {
+	0% { transform: scale(1.1); filter: saturate(100%); }
+	25% { transform: scale(1.2); filter: saturate(150%); }
+	50% { transform: scale(1.15); filter: saturate(125%); }
+	100% { transform: scale(1); filter: saturate(100%); }
+}
+
+
+/*Not ideal, but logic to make grid without extra borders*/
+div.child
+{
+	display:inline-block;
+	border: solid silver;
+	border-width: 1px 0 0 1px;
+	position: static;
+opacity: 1;
+isolation: auto;
+}
+
+div.child-with-border.child-edge
+{
+	display:inline-block;
+	border: solid silver;
+	border-width: 1px 1px 1px 1px;
+	position: static;
+
+}
+
+div.child-edge
+{
+	display:inline-block;
+	border: solid silver;
+	border-width: 1px 0 1px 1px;
+	position: static;
+
+}
+
+div.child-with-border
+{
+	display:inline-block;
+	border: solid silver;
+	border-width: 1px 1px 0px 1px;
+	position: static;
+}
+
+#title {
+	font-size: 50px;
+}
+
+#game-board {
+	display: grid;
+	grid-template-columns: repeat(var(--grid-size), var(--cell));
+	grid-auto-rows: var(--cell);
+	grid-gap: 0;
+	padding:0;
+	margin: 0;
+	z-index: -2;
+}
+
+#score {
+	background-color: var(--color-light-gray);
+	font-weight: bold;
+	color: white;
+	text-align: center;
+	border-radius:5px;
+	display:flex;
+	flex-direction:column;
+	padding: .5vw;
+}
+
+#score_title {
+	font-weight: bold;
+	color: white;
+	text-align: center;
+	font-size: 3.5vh;
+	border-radius:5px;
+	flex:0 0 auto;
+}
+
+#score_number {
+	font-weight: bold;
+	color: white;
+	text-align: center;
+	font-size: 8vh;
+	flex:0 0 auto;
+	margin: 3vh 2vh;
+}
+/* For the new game button*/
+#new-game {
+	background-color: var(--color-blue);
+	font-weight: bold;
+	font-size: 3vh;
+	color: white;
+	text-align: center;
+	align-self: center;
+	padding: 1.5vh;
+	width: 100%;
+}
+
+#new-game:hover {
+	background-color:#0061a7;
+}
+
+
+@media (max-width:1050px) and (min-width:500px){
+
+	#title {
+		font-size: 50px;
+		margin: 10px;
+	}
+
+	body {
+		margin-top: 20px;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction:column;
+		width:90%;
+		padding:10px;
+	}
+
+	main {
+		display: flex;
+		margin: auto;
+		flex-grow: 1;
+		flex-shrink: 0;
+		flex-basis: 50%;
+		justify-content: center;
+		width:90%;
+	}
+
+	header {
+		color: var(--color-blue);
+		display: flex;
+		margin: auto;
+		flex-grow: 1;
+		flex-shrink: 0;
+		flex-basis: 25%;
+		height: 100%;
+		width: 100%;
+	}
+
+	.flex-col {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		margin: 0 25px;
+	}
+
+	.flex-col-buttons {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+	}
+
+	.item {
+		width: 90%;
+		height: 100%;
+		flex: 1;
+		min-height: 100px;
+	}
+
+	.content {
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		width: 	var(--cell);
+		height:	var(--cell);
+		display: flex;
+	}
+
+	.head {
+		border-top: 0; !important;
+		display: flex;
+		align-self: flex-end;
+		justify-content: center;
+		font-size: 3vw;
+		font-family:Arial;
+	}
+
+}
+
+@media (max-width: 500px) {
+
+	:root {
+		--board-size: 70vw;
+		--grid-gap: 1px;
+		--cell-outer: calc(var(--board-size) / var(--size));
+		--cell: calc(var(--cell-outer) - var(--grid-gap));
+	}
+
+	body {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction:row;
+		width:90%;
+		padding:10px;
+		margin: 0;
+	}
+
+	header {
+		color: var(--color-blue);
+		display: flex;
+		margin: 0;
+		flex-grow: 1;
+		flex-shrink: 0;
+		flex-basis: 25%;
+		height: 100%;
+		width: 100%;
+	}
+
+	main {
+		display: flex;
+		margin-top: 5vw;
+		margin-bottom: 5vw;
+		flex-grow: 1;
+		flex-shrink: 0;
+		flex-basis: 50%;
+		justify-content: center;
+		width: 90%;
+	}
+
+	.content {
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		width: var(--cell);
+		height: var(--cell);
+		display: flex;
+	}
+
+	#game-board {
+		--board-size: 70vw;
+	}
+
+	.head {
+		border-top: 0; !important;
+		display: flex;
+		align-self: flex-end;
+		justify-content: center;
+		font-size: 5vw;
+		font-family:Arial;
+	}
+
+}
